@@ -205,12 +205,12 @@
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.Yellow;
-            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 2F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 630F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Controls.Add(this.panelFilm, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 109);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -227,7 +227,7 @@
             this.panelFilm.Location = new System.Drawing.Point(5, 5);
             this.panelFilm.Margin = new System.Windows.Forms.Padding(5);
             this.panelFilm.Name = "panelFilm";
-            this.panelFilm.Size = new System.Drawing.Size(40, 488);
+            this.panelFilm.Size = new System.Drawing.Size(42, 488);
             this.panelFilm.TabIndex = 2;
             // 
             // labelFilmStripContainer
@@ -388,7 +388,7 @@
             this.helpToolStripButton.Text = "toolStripButton1";
             this.helpToolStripButton.Click += new System.EventHandler(this.helpToolStripButton1_Click);
             // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -396,7 +396,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "Balluf BVS ConVis 2007";
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
