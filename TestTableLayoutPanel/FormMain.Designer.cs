@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new UserControls.SplitTableLayoutPanel();
             this.panelSplitterN2 = new System.Windows.Forms.Panel();
             this.labelSplitterN2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new UserControls.SplitTableLayoutPanel();
             this.panelCustomSteps = new System.Windows.Forms.Panel();
             this.labelCustomSteps = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new UserControls.SplitTableLayoutPanel();
             this.panelFilm = new System.Windows.Forms.Panel();
             this.labelFilmStripContainer = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -52,6 +52,10 @@
             this.button_ip = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.uscitaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripPanel1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripPanel3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripPanel4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -94,6 +98,8 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Red;
+            this.tableLayoutPanel1.CanSplitCols = false;
+            this.tableLayoutPanel1.CanSplitRows = false;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
@@ -105,6 +111,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1000, 650);
+            this.tableLayoutPanel1.SplitterSize = 6;
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panelSplitterN2
@@ -167,6 +174,8 @@
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.BackColor = System.Drawing.Color.Blue;
+            this.tableLayoutPanel3.CanSplitCols = false;
+            this.tableLayoutPanel3.CanSplitRows = true;
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.panelCustomSteps, 0, 0);
@@ -179,6 +188,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(688, 610);
+            this.tableLayoutPanel3.SplitterSize = 6;
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // panelCustomSteps
@@ -205,6 +215,8 @@
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.Yellow;
+            this.tableLayoutPanel4.CanSplitCols = false;
+            this.tableLayoutPanel4.CanSplitRows = false;
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 630F));
@@ -217,6 +229,7 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(682, 498);
+            this.tableLayoutPanel4.SplitterSize = 6;
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // panelFilm
@@ -351,7 +364,8 @@
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.uscitaToolStripMenuItem});
+            this.uscitaToolStripMenuItem,
+            this.splitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1000, 28);
@@ -364,6 +378,43 @@
             this.uscitaToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.uscitaToolStripMenuItem.Text = "Quit";
             this.uscitaToolStripMenuItem.Click += new System.EventHandler(this.uscitaToolStripMenuItem_Click_1);
+            // 
+            // splitToolStripMenuItem
+            // 
+            this.splitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StripPanel1ToolStripMenuItem,
+            this.StripPanel3ToolStripMenuItem,
+            this.StripPanel4ToolStripMenuItem});
+            this.splitToolStripMenuItem.Name = "splitToolStripMenuItem";
+            this.splitToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
+            this.splitToolStripMenuItem.Text = "Panel split enabled";
+            // 
+            // StripPanel1ToolStripMenuItem
+            // 
+            this.StripPanel1ToolStripMenuItem.CheckOnClick = true;
+            this.StripPanel1ToolStripMenuItem.Image = global::TestTableLayoutPanel.Properties.Resources.icons8_segno_di_spunta_100;
+            this.StripPanel1ToolStripMenuItem.Name = "StripPanel1ToolStripMenuItem";
+            this.StripPanel1ToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.StripPanel1ToolStripMenuItem.Text = "Split Red Panel (#1)";
+            this.StripPanel1ToolStripMenuItem.Click += new System.EventHandler(this.StripPanel1ToolStripMenuItem_Click);
+            // 
+            // StripPanel3ToolStripMenuItem
+            // 
+            this.StripPanel3ToolStripMenuItem.CheckOnClick = true;
+            this.StripPanel3ToolStripMenuItem.Image = global::TestTableLayoutPanel.Properties.Resources.icons8_segno_di_spunta_100;
+            this.StripPanel3ToolStripMenuItem.Name = "StripPanel3ToolStripMenuItem";
+            this.StripPanel3ToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.StripPanel3ToolStripMenuItem.Text = "Split Blue Panel (#3)";
+            this.StripPanel3ToolStripMenuItem.Click += new System.EventHandler(this.StripPanel3toolStripMenuItem_Click);
+            // 
+            // StripPanel4ToolStripMenuItem
+            // 
+            this.StripPanel4ToolStripMenuItem.CheckOnClick = true;
+            this.StripPanel4ToolStripMenuItem.Image = global::TestTableLayoutPanel.Properties.Resources.icons8_segno_di_spunta_100;
+            this.StripPanel4ToolStripMenuItem.Name = "StripPanel4ToolStripMenuItem";
+            this.StripPanel4ToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.StripPanel4ToolStripMenuItem.Text = "Split Yellow Panel (#4)";
+            this.StripPanel4ToolStripMenuItem.Click += new System.EventHandler(this.stripPanel4ToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -435,16 +486,16 @@
         private System.Windows.Forms.ToolStripMenuItem uscitaToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private UserControls.SplitTableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panelSplitterN2;
         private System.Windows.Forms.Label labelSplitterN2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private UserControls.SplitTableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panelCustomSteps;
         private System.Windows.Forms.Label labelCustomSteps;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private UserControls.SplitTableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Panel panelFilm;
         private System.Windows.Forms.Label labelFilmStripContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
@@ -455,6 +506,10 @@
         private System.Windows.Forms.Button button_s;
         private System.Windows.Forms.Button button_o;
         private System.Windows.Forms.Button button_ip;
+        private System.Windows.Forms.ToolStripMenuItem splitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem StripPanel3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem StripPanel1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem StripPanel4ToolStripMenuItem;
     }
 }
 

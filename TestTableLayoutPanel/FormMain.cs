@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControls;
 
 namespace TestTableLayoutPanel
 {
@@ -15,7 +16,53 @@ namespace TestTableLayoutPanel
         public FormMain()
         {
             InitializeComponent();
+
+            doCheckedSplitPanel1toolStripMenuItem(); //check for tableLayoutPanel1 enable split
+            doCheckedSplitPanel3toolStripMenuItem(); //check for tableLayoutPanel3 enable split
+            doCheckedSplitPanel4toolStripMenuItem(); //check for tableLayoutPanel4 enable split
         }
+
+        #region Splitting enable methods
+        private void doCheckedSplitPanel1toolStripMenuItem()
+        {
+            if (StripPanel1ToolStripMenuItem.Checked)
+            {
+                StripPanel1ToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            }
+            else
+            {
+                StripPanel1ToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            }
+            tableLayoutPanel1.CanSplitCols = StripPanel1ToolStripMenuItem.Checked;
+        }
+
+        private void doCheckedSplitPanel3toolStripMenuItem()
+        {
+            if (StripPanel3ToolStripMenuItem.Checked)
+            {
+                StripPanel3ToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            }
+            else
+            {
+                StripPanel3ToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            }
+            tableLayoutPanel3.CanSplitRows = StripPanel3ToolStripMenuItem.Checked;
+        }
+
+        private void doCheckedSplitPanel4toolStripMenuItem()
+        {
+            if (StripPanel4ToolStripMenuItem.Checked)
+            {
+                StripPanel4ToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            }
+            else
+            {
+                StripPanel4ToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            }
+            tableLayoutPanel4.CanSplitCols = StripPanel4ToolStripMenuItem.Checked;
+        }
+
+        #endregion
 
         private void helpToolStripButton1_Click(object sender, EventArgs e)
         {
@@ -63,6 +110,21 @@ namespace TestTableLayoutPanel
             {
                 aFormConsole.Dispose();
             }
+        }
+
+        private void StripPanel1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            doCheckedSplitPanel1toolStripMenuItem();
+        }
+
+        private void StripPanel3toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            doCheckedSplitPanel3toolStripMenuItem();
+        }
+
+        private void stripPanel4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            doCheckedSplitPanel4toolStripMenuItem();
         }
     }
 }
