@@ -82,18 +82,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A3A9770A69A14430BA4D49E08403B520"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C264B07A918726442BA6A12443ABE95F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8146767B42949928EAE8FF83D41A3581"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -101,6 +89,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B06E106AC3D709F9E55B5AEF834D5B92"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A3A9770A69A14430BA4D49E08403B520"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C264B07A918726442BA6A12443ABE95F"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -416,7 +416,7 @@
             "TargetName" = "8:Readme4Win10.txt"
             "Tag" = "8:"
             "Folder" = "8:_0BC2EC74B5CC4847B1C6EADE21C4806C"
-            "Condition" = "8:VersionNT = 1000"
+            "Condition" = "8:VersionNT = 603"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
@@ -594,7 +594,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TestTableLayoutPanel"
         "ProductCode" = "8:{C858D2AE-7387-4383-8A4A-7275DA9B4D1E}"
-        "PackageCode" = "8:{8B1CCD5E-F14E-42F8-844F-949BA78438AC}"
+        "PackageCode" = "8:{C3471E56-DBA0-4C45-BB9A-F614F5C10CE0}"
         "UpgradeCode" = "8:{62FDEDD6-6429-46ED-A975-B272A2C24E65}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -796,6 +796,53 @@
             "Attributes" = "3:1"
                 "Dialogs"
                 {
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_20B0B76F1882479F94FEF30B6EC1AF67"
+                    {
+                    "Sequence" = "3:200"
+                    "DisplayName" = "8:License Agreement"
+                    "UseDynamicProperties" = "11:TRUE"
+                    "IsDependency" = "11:FALSE"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdLicenseDlg.wid"
+                        "Properties"
+                        {
+                            "BannerBitmap"
+                            {
+                            "Name" = "8:BannerBitmap"
+                            "DisplayName" = "8:#1001"
+                            "Description" = "8:#1101"
+                            "Type" = "3:8"
+                            "ContextData" = "8:Bitmap"
+                            "Attributes" = "3:4"
+                            "Setting" = "3:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "EulaText"
+                            {
+                            "Name" = "8:EulaText"
+                            "DisplayName" = "8:#1008"
+                            "Description" = "8:#1108"
+                            "Type" = "3:6"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:_62D4997BB99841DE82B3B3EE9D2B64C9"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Sunken"
+                            {
+                            "Name" = "8:Sunken"
+                            "DisplayName" = "8:#1007"
+                            "Description" = "8:#1107"
+                            "Type" = "3:5"
+                            "ContextData" = "8:4;True=4;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:4"
+                            "DefaultValue" = "3:4"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                        }
+                    }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_756E3777E685416F90FA9944520E513A"
                     {
                     "Sequence" = "3:300"
