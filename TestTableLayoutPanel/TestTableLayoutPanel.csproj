@@ -89,6 +89,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Docs\Readme4Win10.txt" />
+    <Content Include="Docs\Readme4Win7.txt" />
     <None Include="Resources\icons8-segno-di-spunta-100.png" />
     <None Include="Resources\check.png" />
     <EmbeddedResource Include="FormConsole.resx">
