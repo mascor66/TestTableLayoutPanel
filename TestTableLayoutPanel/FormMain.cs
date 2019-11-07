@@ -7,19 +7,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 using UserControls;
 
 namespace TestTableLayoutPanel
 {
     public partial class FormMain : Form
     {
+        private int DELTA_WIDTH = 100;
+        private System.Drawing.Size PanelFilm_IniSize;
+        private System.Drawing.Size FormMain_IniSize;
+        private System.Drawing.Size FormMain_ActualSize;
+
         public FormMain()
         {
             InitializeComponent();
 
+            if (0 != ConfigurationManager.AppSettings["DELTA_WIDTH"].CompareTo(string.Empty))
+            {
+                DELTA_WIDTH = Convert.ToInt32(ConfigurationManager.AppSettings["DELTA_WIDTH"]);
+            }
+            StripPanel4ToolStripMenuItem.Checked = true;
             doCheckedSplitPanel1toolStripMenuItem(); //check for tableLayoutPanel1 enable split
             doCheckedSplitPanel3toolStripMenuItem(); //check for tableLayoutPanel3 enable split
             doCheckedSplitPanel4toolStripMenuItem(); //check for tableLayoutPanel4 enable split
+
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
+            this.panelFilm.Resize += new System.EventHandler(this.panelFilm_Resize);
+            this.MaximizeBox = false;
+            this.MinimumSize = new Size(this.Size.Width, this.Size.Height); 
+            this.MaximumSize = new Size(this.Size.Width + DELTA_WIDTH, this.Size.Height);
+            panelToolContainer.MinimumSize = new Size(panelToolContainer.Size.Width, panelToolContainer.Size.Height);
+            panelToolContainer.MaximumSize = new Size(panelToolContainer.Size.Width, panelToolContainer.Size.Height);
+            panelFilm.MinimumSize = new Size(panelFilm.Width, panelFilm.Height);
+            panelFilm.MaximumSize = new Size(panelFilm.Width + DELTA_WIDTH, panelFilm.Height);
+            panelCustomSteps.Dock = DockStyle.Left;
+            PanelFilm_IniSize = new System.Drawing.Size(panelFilm.Width, panelFilm.Height);
+            FormMain_IniSize = new System.Drawing.Size(this.Width, this.Height);
+            FormMain_ActualSize = new System.Drawing.Size(FormMain_IniSize.Width, FormMain_IniSize.Height);
+            printPanelFilmSize();
+        }
+
+        private void printPanelFilmSize()
+        {
+            toolStripStatusLabel1.Text = string.Format(" Main form({0},{1}) - Film({2},{3}) - ToolContainer({4},{5})", 
+                this.Width, this.Height, panelFilm.Width, panelFilm.Height, panelToolContainer.Width, panelToolContainer.Height);
+        }
+
+        private void doRefresh_FormMain_ActualSize()
+        {
+            int deltaWidth = panelFilm.Width - PanelFilm_IniSize.Width;
+            FormMain_ActualSize.Width = FormMain_IniSize.Width + deltaWidth;
         }
 
         #region Splitting enable methods
@@ -63,6 +101,12 @@ namespace TestTableLayoutPanel
         }
 
         #endregion
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            int[] colsWidth = tableLayoutPanel4.GetColumnWidths();
+            tableLayoutPanel4.BoundCols.Add(new System.Drawing.PointF(colsWidth[0], colsWidth[0] + DELTA_WIDTH));
+        }
 
         private void helpToolStripButton1_Click(object sender, EventArgs e)
         {
@@ -126,5 +170,17 @@ namespace TestTableLayoutPanel
         {
             doCheckedSplitPanel4toolStripMenuItem();
         }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            printPanelFilmSize();
+        }
+
+        private void panelFilm_Resize(object sender, EventArgs e)
+        {
+            doRefresh_FormMain_ActualSize();
+            this.Size = new Size(FormMain_ActualSize.Width, FormMain_ActualSize.Height);
+        }
+
     }
 }

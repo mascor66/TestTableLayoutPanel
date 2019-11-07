@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace TestTableLayoutPanel
@@ -15,8 +16,39 @@ namespace TestTableLayoutPanel
         public FormImagePanel()
         {
             InitializeComponent();
+
+            string curBounds = string.Empty;
+            curBounds = ConfigurationManager.AppSettings["FormImagePanelBoundRows"];
+            fillList(curBounds, splitTableLayoutPanel1.BoundRows);
+            curBounds = ConfigurationManager.AppSettings["FormImagePanelBoundCols"];
+            fillList(curBounds, splitTableLayoutPanel1.BoundCols);
             doCheckedRows();
             doCheckedCols();
+        }
+
+        private void fillList(string strFiller, List<System.Drawing.PointF> boundList)
+        {
+            if (strFiller is null) return;
+            boundList.Clear();
+            foreach (string curPointStr in strFiller.Split(';'))
+            {
+                int curIdx = 0;
+                System.Drawing.PointF newPoint = new System.Drawing.PointF();
+                foreach (string curPointItem in curPointStr.Split(','))
+                {
+                    curIdx++;
+                    switch (curIdx)
+                    {
+                        case 1:
+                            newPoint.X = Convert.ToInt32(curPointItem);
+                            break;
+                        case 2:
+                            newPoint.Y = Convert.ToInt32(curPointItem);
+                            break;
+                    }
+                }
+                boundList.Add(newPoint);
+            }
         }
 
         private void doCheckedRows()

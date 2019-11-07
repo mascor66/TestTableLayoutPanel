@@ -5,11 +5,50 @@ using System.Windows.Forms;
 
 namespace UserControls
 {
+    [Serializable]
     public partial class SplitTableLayoutPanel: TableLayoutPanel
     {
-        public bool CanSplitRows { get; set; }
-        public bool CanSplitCols { get; set; }
+        private bool m_CanSplitRows = false;
+        public bool CanSplitRows {
+            get {
+                return m_CanSplitRows;
+            }
+            set {
+                m_CanSplitRows = value;
+                if (true == m_CanSplitRows)
+                {
+                    normalizeRowStyles();
+                }
+            }
+        }
+        private bool m_CanSplitCols = false;
+        public bool CanSplitCols
+        {
+            get{
+                return m_CanSplitCols;
+            }
+            set
+            {
+                m_CanSplitCols = value;
+                if (true == m_CanSplitCols)
+                {
+                    normalizeColStyles();
+                }
+            }
+        }
         public int SplitterSize { get; set; }
+
+        private List<System.Drawing.PointF> m_BoundRows = new List<System.Drawing.PointF>();
+        public List<System.Drawing.PointF> BoundRows
+        {
+            get { return m_BoundRows; }
+        }
+
+        private List<System.Drawing.PointF> m_BoundCols = new List<System.Drawing.PointF>();
+        public List<System.Drawing.PointF> BoundCols
+        {
+            get { return m_BoundCols; }
+        }
 
         int sizingRow = -1;
         int currentRow = -1;
@@ -26,7 +65,7 @@ namespace UserControls
         List<RectangleF> tlpCols = new List<RectangleF>();
         int[] colWidths = new int[0];
 
-        public SplitTableLayoutPanel()
+        public SplitTableLayoutPanel(): base()
         {
             //InitializeComponent(); //IMC error
             this.MouseDown += SplitTablePanel_MouseDown;
@@ -39,8 +78,8 @@ namespace UserControls
 
         void SplitTablePanel_Resize(object sender, EventArgs e)
         {
-            getRowRectangles(SplitterSize);
-            getColRectangles(SplitterSize);
+            getRowMSRectangles(SplitterSize);
+            getColMSRectangles(SplitterSize);
         }
 
         void SplitTablePanel_MouseLeave(object sender, EventArgs e)
@@ -50,8 +89,8 @@ namespace UserControls
 
         void SplitTablePanel_MouseUp(object sender, MouseEventArgs e)
         {
-            getRowRectangles(SplitterSize);
-            getColRectangles(SplitterSize);
+            getRowMSRectangles(SplitterSize);
+            getColMSRectangles(SplitterSize);
         }
 
         void SplitTablePanel_MouseMove(object sender, MouseEventArgs e)
@@ -80,7 +119,7 @@ namespace UserControls
                 normalizeRowStyles();
             }
             if (tlpRows.Count <= 0) {
-                getRowRectangles(SplitterSize);
+                getRowMSRectangles(SplitterSize);
             }
             if (rowHeights.Length <= 0) {
                 rowHeights = GetRowHeights();
@@ -88,7 +127,7 @@ namespace UserControls
 
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                if (sizingRow < 0) return false;
+                if ((sizingRow < 0) || (sizingRow >= rowHeights.Length)) return false;
                 int newHeight = oldHeight + e.Y - mdown.Y;
                 sizeRow(sizingRow, newHeight);
                 isMove = true;
@@ -115,12 +154,12 @@ namespace UserControls
             }
             bool isMove = false;
             if (!isNormalCol) normalizeColStyles();
-            if (tlpCols.Count <= 0) getColRectangles(SplitterSize);
+            if (tlpCols.Count <= 0) getColMSRectangles(SplitterSize);
             if (colWidths.Length <= 0) colWidths = GetColumnWidths();
 
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                if (sizingCol < 0) return false;
+                if ((sizingCol < 0) || (sizingCol >= colWidths.Length )) return false;
                 int newWidth = oldWidth + e.X - mdown.X;
                 sizeCol(sizingCol, newWidth);
                 isMove = true;
@@ -150,7 +189,7 @@ namespace UserControls
         void rowDown()
         {
             sizingRow = -1;
-            if (currentRow < 0) return;
+            if ((currentRow < 0) || (sizingRow >= rowHeights.Length)) return;
             if (CanSplitRows)
             {
                 sizingRow = currentRow;
@@ -161,7 +200,7 @@ namespace UserControls
         void colDown()
         {
             sizingCol = -1;
-            if (currentCol < 0) return;
+            if ((currentCol < 0) || (sizingCol >= colWidths.Length)) return;
             if (CanSplitCols)
             {
                 sizingCol = currentCol;
@@ -169,7 +208,7 @@ namespace UserControls
             oldWidth = colWidths[sizingCol];
         }
 
-        void getRowRectangles(float size)
+        void getRowMSRectangles(float size)
         {   // get a list of mouse sensitive rectangles
             float sz = size / 2f;
             float y = 0f;
@@ -185,7 +224,7 @@ namespace UserControls
 
         }
 
-        void getColRectangles(float size)
+        void getColMSRectangles(float size)
         {   // get a list of mouse sensitive rectangles
             float sz = size / 2f;
             float x = 0f;
@@ -205,6 +244,15 @@ namespace UserControls
         {   // change the height of one row
             if (newHeight == 0) return;
             if (sizingRow < 0) return;
+            //check if new dimension is in bound begin
+            if (m_BoundRows.Count > 0)
+            {
+                if (row >= m_BoundRows.Count) return;
+                if ((-1 == m_BoundRows[row].X) || (-1 == m_BoundRows[row].Y)) return;
+                if ((newHeight < m_BoundRows[row].X) || (newHeight > m_BoundRows[row].Y))
+                    return;
+            }
+            //check if new dimension is in bound end
             SuspendLayout();
             rowHeights = GetRowHeights();
             if (sizingRow >= rowHeights.Length) return;
@@ -213,13 +261,22 @@ namespace UserControls
                 RowStyles[sizingRow] = new RowStyle(SizeType.Absolute, newHeight);
             ResumeLayout();
             rowHeights = GetRowHeights();
-            getRowRectangles(SplitterSize);
+            getRowMSRectangles(SplitterSize);
         }
 
         void sizeCol(int col, int newWidth)
         {   // change the height of one row
             if (newWidth == 0) return;
             if (sizingCol < 0) return;
+            //check if new dimension is in bound begin
+            if (m_BoundCols.Count > 0)
+            {
+                if (col >= m_BoundCols.Count) return;
+                if ((-1 == m_BoundCols[col].X) || (-1 == m_BoundCols[col].Y)) return;
+                if ((newWidth < m_BoundCols[col].X) || (newWidth > m_BoundCols[col].Y))
+                    return;
+            }
+            //check if new dimension is in bound end
             SuspendLayout();
             colWidths = GetColumnWidths();
             if (sizingCol >= colWidths.Length) return;
@@ -228,13 +285,17 @@ namespace UserControls
                 ColumnStyles[sizingCol] = new ColumnStyle(SizeType.Absolute, newWidth);
             ResumeLayout();
             colWidths = GetColumnWidths();
-            getColRectangles(SplitterSize);
+            getColMSRectangles(SplitterSize);
         }
 
         void normalizeRowStyles()
         {   // set all rows to absolute and the last one to percent=100!
-            if (rowHeights.Length <= 0) return;
             rowHeights = GetRowHeights();
+            if (rowHeights.Length <= 0)
+            {
+                isNormalRow = true;
+                return;
+            }
             RowStyles.Clear();
             for (int i = 0; i < RowCount - 1; i++)
             {
@@ -247,8 +308,12 @@ namespace UserControls
 
         void normalizeColStyles()
         {   // set all rows to absolute and the last one to percent=100!
-            if (colWidths.Length <= 0) return;
             colWidths = GetColumnWidths();
+            if (colWidths.Length <= 0)
+            {
+                isNormalCol = true;
+                return;
+            }
             ColumnStyles.Clear();
             for (int i = 0; i < ColumnCount - 1; i++)
             {
